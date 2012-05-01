@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Django-bootstrap-pagination : django-pagination for bootstrap pagination layout" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Django-bootstrap-pagination</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/tgdn/django-bootstrap-pagination">View on GitHub</a>
+
+          <h1 id="project_title">Django-bootstrap-pagination</h1>
+          <h2 id="project_tagline">django-pagination for bootstrap pagination layout</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/tgdn/django-bootstrap-pagination/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/tgdn/django-bootstrap-pagination/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>Welcome to django-bootstrap-pagination</h3>
+
+<p>It is a fork from ericflo/django-pagination to fit bootstrap pagination layout</p>
+
+<h3>Installing</h3>
+
+<p>Clone the repo</p>
+
+<pre><code>$ git clone git://github.com/tgdn/django-bootstrap-pagination.git
+</code></pre>
+
+<p>and install</p>
+
+<pre><code>$ cd django-bootstrap-pagination/
+$ python setup.py install
+</code></pre>
+
+<p>You may need to have root access, then use <code>sudo python setup.py install</code> instead</p>
+
+<p>In your settings.py add to your <code>INSTALLED_APPS</code> <code>bootstrap_pagination</code></p>
+
+<div class="highlight">
+<pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="o">...</span>
+
+    <span class="s">'bootstrap_pagination'</span><span class="p">,</span>
+
+    <span class="o">...</span>
+<span class="p">)</span>
+</pre>
+</div>
+
+
+<p>and to your <code>MIDDLEWARE_CLASSES</code> add <code>'bootstrap_pagination.middleware.PaginationMiddleware'</code></p>
+
+<div class="highlight">
+<pre>
+<span class="n">MIDDLEWARE_CLASSES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">'django.middleware.common.CommonMiddleware'</span><span class="p">,</span>
+    <span class="s">'django.contrib.sessions.middleware.SessionMiddleware'</span><span class="p">,</span>
+    <span class="s">'django.middleware.csrf.CsrfViewMiddleware'</span><span class="p">,</span>
+    <span class="s">'django.contrib.auth.middleware.AuthenticationMiddleware'</span><span class="p">,</span>
+    <span class="s">'django.contrib.messages.middleware.MessageMiddleware'</span><span class="p">,</span>
+
+    <span class="o">...</span>
+
+    <span class="s">'bootstrap_pagination.middleware.PaginationMiddleware'</span><span class="p">,</span>
+<span class="p">)</span>
+</pre>
+</div>
+
+
+<h3>How to use</h3>
+
+<p>In your view use </p>
+
+<div class="highlight">
+<pre><span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">first_name</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">"template.html"</span><span class="p">,</span> <span class="p">{</span> <span class="s">'users'</span><span class="p">:</span><span class="n">users</span> <span class="p">},</span> <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</pre>
+</div>
+
+
+<p>... or whatever you want</p>
+
+<p>In your template use</p>
+
+<div class="highlight">
+<pre><span class="c">&lt;!-- load tags and filters --&gt;</span>
+{% load pagination_tags %}
+
+<span class="nt">&lt;div&gt;</span>
+  <span class="c">&lt;!--</span>
+<span class="c">   users: the list to paginate</span>
+<span class="c">   20: results per page</span>
+<span class="c">  --&gt;</span>
+  {% autopaginate users 20 %}
+
+  <span class="nt">&lt;ul&gt;</span>
+  {% for user in users %}
+    <span class="nt">&lt;li&gt;</span>{{ user.username }}<span class="nt">&lt;/li&gt;</span>
+  {% empty %}
+    No results...
+  {% endfor %}
+  <span class="nt">&lt;/ul&gt;</span>
+
+  <span class="c">&lt;!-- navigation --&gt;</span>
+  {% paginate %}  
+
+<span class="nt">&lt;/div&gt;</span>
+</pre>
+</div>
+
+
+<p>Then run the server !</p>
+
+<h3>How it looks like?</h3>
+
+<p><img src="http://i1074.photobucket.com/albums/w411/tgdn45/Capturedcran2012-05-01232536.png" alt="bootstrap pagination image"></p>
+
+<h3>Authors and Contributors</h3>
+
+<p>Forked from (<a href="https://github.com/ericflo" class="user-mention">@ericflo</a>)'s django-pagination</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Django-bootstrap-pagination maintained by <a href="https://github.com/tgdn">tgdn</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
